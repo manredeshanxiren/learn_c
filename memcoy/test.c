@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<assert.h>
+//memcpy
 void* MyMemcpy(void* dest, const void* src, size_t num)
 {
 	assert(dest);
@@ -11,6 +12,30 @@ void* MyMemcpy(void* dest, const void* src, size_t num)
 		*(char*)dest = *(char*)src;
 		dest = (char*)dest + 1;
 		src = (char*)src + 1;
+	}
+	return ret;
+}
+//Ä£ÄâmemmoveµÄmemcpy
+void* MyMemcpy_s(void* dest, const void* src, size_t num)
+{
+	assert(dest);
+	assert(src);
+	void* ret = dest;
+	if (dest < src)
+	{
+		while (num--)
+		{
+				*(char*)dest = *(char*)src;
+				dest = (char*)dest + 1;
+				src = (char*)src + 1;	
+		}
+	}
+	else
+	{
+		while (num--)
+		{
+			*((char*)dest + num) = *((char*)src + num);
+		}
 	}
 	return ret;
 }
