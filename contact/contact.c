@@ -1,22 +1,91 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"contact.h"
 
-//初始化通讯录
+////初始化通讯录
+//void InitContact(struct contact* pc)
+//{
+//	pc->sz = 0;
+//	memset(pc->data, 0, 100 * sizeof(struct PeoInfo));
+//}
+
 void InitContact(struct contact* pc)
 {
-	pc->sz = 0;
-	memset(pc->data, 0, 100 * sizeof(struct PeoInfo));
-}
-
-//向通讯录中添加数据
-void AddContact(struct contact* pc)
-{
-	if (pc->sz == MAX)
+	assert(pc);
+	pc->data = (struct PeoInfo*)malloc(DEFAULT_SZ * sizeof(struct PeoInfo));
+	if (pc == NULL)
 	{
-		printf("通讯录已满,无法添加数据\n");
+		perror("AddContact()");
 		return;
 	}
+	pc->sz = 0;
+	pc->capacity = 3;
+}
 
+//销毁通讯录
+void DestroyContact(struct contact* pc)
+{
+	free(pc->data);
+	pc->data = NULL;
+	pc->capacity = 0;
+	pc->sz = 0;
+}
+//向通讯录中添加数据(静态版本)
+//void AddContact(struct contact* pc)
+//{
+//	if (pc->sz == MAX)
+//	{
+//		printf("通讯录已满,无法添加数据\n");
+//		return;
+//	}
+//
+//	//增加人的信息
+//	printf("请输入名字:>");
+//	scanf("%s", pc->data[pc->sz].name);
+//	printf("请输入性别:>");
+//	scanf("%s", pc->data[pc->sz].sex);
+//	printf("请输入电话:>");
+//	scanf("%s", pc->data[pc->sz].tele);
+//	printf("请输入年龄:>");
+//	scanf("%d", &pc->data[pc->sz].age);
+//	printf("请输入地址:>");
+//	scanf("%s", pc->data[pc->sz].addr);
+//	pc->sz++;
+//	printf("成功增加联系人\n");
+//}
+int CheckCapacity(struct contact* pc)
+{
+	assert(pc);
+	if (pc->sz == pc->capacity)
+	{
+		//增加容量
+		struct PeoInfo* ptr = (struct PeoInfo*)realloc(pc->data, (pc->capacity + INC_SZ) * sizeof(struct PeoInfo));
+		if (ptr != NULL)
+		{
+			pc->data = ptr;
+			pc->capacity += INC_SZ;
+			printf("增容成功\n");
+			return 1;
+		}
+		else
+		{
+			perror("AddContact()");
+			return 0;
+		}
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+void AddContact(struct contact* pc)
+{
+	assert(pc);
+	if (0 == CheckCapacity(pc))
+	{
+		printf("扩容失败， 无法添加信息\n");
+		return;
+	}
 	//增加人的信息
 	printf("请输入名字:>");
 	scanf("%s", pc->data[pc->sz].name);
@@ -32,6 +101,7 @@ void AddContact(struct contact* pc)
 	printf("成功增加联系人\n");
 }
 
+
 //展示通讯录的信息
 void ShowContact(const struct contact* pc)
 {
@@ -41,7 +111,8 @@ void ShowContact(const struct contact* pc)
 	}
 	for (int i = 0; i < pc->sz; i++)
 	{
-		printf("%-20s\t%-5s\t%-5d\t%-5s\t%-30s\n", pc->data[i].name,
+		printf("%-20s\t%-5s\t%-5d\t%-5s\t%-30s\n", 
+			pc->data[i].name,
 			pc->data[i].sex,
 			pc->data[i].age,
 			pc->data[i].tele,

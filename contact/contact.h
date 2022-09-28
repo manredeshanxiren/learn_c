@@ -3,11 +3,14 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<assert.h>
 #define MAX_NAME 20
 #define MAX_SEX 5
 #define MAX_TELE 12
 #define MAX_ADD 30
 #define MAX 100
+#define DEFAULT_SZ 3
+#define INC_SZ 2 //默认增加的大小
 
 
 struct PeoInfo
@@ -20,10 +23,18 @@ struct PeoInfo
 };
 
 
+//struct contact
+//{
+//	struct PeoInfo data[MAX];
+//	int sz;
+//};
+
+
 struct contact
 {
-	struct PeoInfo data[MAX];
-	int sz;
+	struct PeoInfo *data;
+	int sz;//已经放进去的信息
+	int capacity;//容量
 };
 
 //初始化通讯录
@@ -46,3 +57,6 @@ void ModifyContact(struct contact* pc);
 
 //排序联系人
 void SortContact(struct contact* pc);
+
+//销毁通讯录
+void DestroyContact(struct contact* pc);
