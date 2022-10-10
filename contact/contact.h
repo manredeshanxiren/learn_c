@@ -9,7 +9,12 @@
 #define MAX_TELE 12
 #define MAX_ADD 30
 #define MAX 100
+
+
+//通讯录默认大小
 #define DEFAULT_SZ 3
+
+//空间满后每次默认增加两个信息
 #define INC_SZ 2 //默认增加的大小
 
 
@@ -60,3 +65,9 @@ void SortContact(struct contact* pc);
 
 //销毁通讯录
 void DestroyContact(struct contact* pc);
+
+//保存通讯录信息到文件
+void SaveContact(struct contact* pc);
+
+//加载文件的信息到通讯录
+void LoadContact(struct contact* pc);

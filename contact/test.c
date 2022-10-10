@@ -1,8 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"contact.h"
-
-
-
 void menu()
 {
 	printf("***********************************************\n");
@@ -44,6 +41,8 @@ int main()
 			SortContact(&con);
 			break;
 		case 0:
+			SaveContact(&con);
+			printf("保存文件成功");
 			DestroyContact(&con);
 			printf("退出通信录");
 			break;

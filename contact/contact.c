@@ -8,6 +8,57 @@
 //	memset(pc->data, 0, 100 * sizeof(struct PeoInfo));
 //}
 
+
+//检查通讯录容量
+int CheckCapacity(struct contact* pc)
+{
+	assert(pc);
+	if (pc->sz == pc->capacity)
+	{
+		//增加容量
+		struct PeoInfo* ptr = (struct PeoInfo*)realloc(pc->data, (pc->capacity + INC_SZ) * sizeof(struct PeoInfo));
+		if (ptr != NULL)
+		{
+			pc->data = ptr;
+			pc->capacity += INC_SZ;
+			printf("增容成功\n");
+			return 1;
+		}
+		else
+		{
+			perror("AddContact()");
+			return 0;
+		}
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+//加载文件的信息到通讯录
+void LoadContact(struct contact* pc)
+{
+	//打开文件
+	FILE* pfr = fopen("contact.txt", "r");
+	if (pfr == NULL)
+	{
+		perror("LoadConact::fopen");
+		return;
+	}
+	//读文件
+	struct PeoInfo tmp = { 0 };
+	while (fread(&tmp, sizeof(struct PeoInfo), 1, pfr) == 1)
+	{
+		//检查是否需要增加容量
+		CheckCapacity(pc);
+		pc->data[pc->sz] = tmp;
+		pc->sz++;
+	}
+	//关闭文件
+	fclose(pfr);
+	pfr = NULL;
+}
 void InitContact(struct contact* pc)
 {
 	assert(pc);
@@ -19,6 +70,7 @@ void InitContact(struct contact* pc)
 	}
 	pc->sz = 0;
 	pc->capacity = 3;
+	LoadContact(pc);
 }
 
 //销毁通讯录
@@ -52,31 +104,7 @@ void DestroyContact(struct contact* pc)
 //	pc->sz++;
 //	printf("成功增加联系人\n");
 //}
-int CheckCapacity(struct contact* pc)
-{
-	assert(pc);
-	if (pc->sz == pc->capacity)
-	{
-		//增加容量
-		struct PeoInfo* ptr = (struct PeoInfo*)realloc(pc->data, (pc->capacity + INC_SZ) * sizeof(struct PeoInfo));
-		if (ptr != NULL)
-		{
-			pc->data = ptr;
-			pc->capacity += INC_SZ;
-			printf("增容成功\n");
-			return 1;
-		}
-		else
-		{
-			perror("AddContact()");
-			return 0;
-		}
-	}
-	else
-	{
-		return 1;
-	}
-}
+
 
 void AddContact(struct contact* pc)
 {
@@ -212,4 +240,24 @@ int cmp_int(const void* a, const void* b)
 void SortContact(struct contact* pc)
 {
 	qsort(pc->data, pc->sz, sizeof(struct PeoInfo), cmp_int);
+}
+
+//保存通讯录信息到文件
+void SaveContact(struct contact* pc)
+{
+	//打开文件
+	FILE*pfw = fopen("contact.txt", "w");
+	if (pfw == NULL)
+	{
+		perror("SaveContact::fopen");
+		return;
+	}
+	//写文件
+	for (int i = 0; i < pc->sz; i++)
+	{
+		fwrite(pc->data + i, sizeof(struct PeoInfo), 1, pfw);
+	}
+	//关闭文件
+	fclose(pfw);
+	pfw = NULL;
 }
