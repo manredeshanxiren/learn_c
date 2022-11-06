@@ -24,8 +24,14 @@ void SLPopFront(SLNode** pplist);
 //单链表查找
 SLNode* SLFind(SLNode* plist, SLDateType x);
 
-//在对应后位置插入
+//在对应位置后插入
 void SListInsertAfter(SLNode* pos, SLDateType x);
+
+//在对应位置前插入
+void SListInsertAfter(SLNode** pphead, SLNode* pos, SLDateType x);
 
 //在对应后位置删除
 void SListEraseAfter(SLNode* pos);
+
+//删除对应的位置
+void SListErase(SLNode** pphead, SLNode* pos);

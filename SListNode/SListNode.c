@@ -104,40 +104,47 @@ void SLPopFront(SLNode** pplist)
 //单链表查找
 SLNode* SLFind(SLNode* plist, SLDateType x)
 {
-	if (plist == NULL)
+	SLNode* cur = phead;
+	while (cur)
 	{
-		return NULL;
-	}
-	else if (plist->next == NULL)
-	{
-		if (x == plist->data)
+		if (cur->data == x)
 		{
-			return plist;
+			return cur;
 		}
-		else
-		{
-			return NULL;
-		}
+
+		cur = cur->next;
 	}
-	else
-	{
-		while (plist->next != NULL)
-		{
-			if (x == plist->data)
-			{
-				return plist;
-			}
-			plist = plist->next;
-		}
-	}
+	return NULL;
 }
 
 //在对应后位置插入
 void SListInsertAfter(SLNode* pos, SLDateType x)
 {
+	assert(pos);
 	SLNode* New = BuySLNode(x);
 	New->next = pos->next;
 	pos->next = New;
+}
+
+//在对应位置前插入
+void SListInsertAfter(SLNode** pphead, SLNode* pos, SLDateType x)
+{
+	assert(pos);
+	if (pos == *pphead)
+	{
+		SLPushFront(pphead, x);
+	}
+	else
+	{
+		SLNode* prev = *pphead;
+		while (prev->next != pos)
+		{
+			prev = prev->next;
+		}
+		SLNode* new = BuySLNode(x);
+		prev->next = new;
+		new->next = pos;
+	}
 }
 
 //在对应后位置删除
@@ -162,5 +169,29 @@ void SListEraseAfter(SLNode* pos)
 		pos->next = temp->next;
 		free(temp);
 		temp = NULL;
+	}
+}
+
+//删除对应的位置
+void SListErase(SLNode** pphead, SLNode* pos);
+
+//删除对应的位置
+void SListErase(SLNode** pphead, SLNode* pos)
+{
+	assert(pos);
+	if (pos == *pphead)
+	{
+		//直接头删
+		SLPopFront(pphead);
+	}
+	else
+	{
+		SLNode* prev = *pphead;
+		while (prev->next != pos)
+		{
+			prev = prev->next;
+		}
+		prev->next = pos->next;
+		free(pos);
 	}
 }
