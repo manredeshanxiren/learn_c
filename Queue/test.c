@@ -10,16 +10,14 @@ void TestQueue1()
 	QueuePush(&q, 3);
 	QueuePush(&q, 4);
 
-	QueuePop(&q);
-	QueuePop(&q);
-	QueuePop(&q);
-	QueuePop(&q);
+	while (!QueueEmpty(&q))
+	{
+		printf("%d ", QueueFront(&q));
+		QueuePop(&q);
+	}
 
-	QueuePush(&q, 1);
-	QueuePush(&q, 2);
-	QueuePush(&q, 3);
-	QueuePush(&q, 4);
 
+	printf("\n%d ", QueueSize(&q));
 
 	QueueDestroy(&q);
 }

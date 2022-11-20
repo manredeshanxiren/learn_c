@@ -5,7 +5,7 @@
 #include<stdbool.h>
 
 
-typedef QdataType;
+typedef int QdataType;
 
 typedef struct QueueNode
 {
@@ -18,6 +18,7 @@ typedef struct Queue
 {
 	QueueNode* head;
 	QueueNode* tail;
+	size_t size;
 }Queue;
 
 

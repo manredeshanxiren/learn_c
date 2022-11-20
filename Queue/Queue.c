@@ -7,6 +7,7 @@ void QueueInit(Queue* pq)
 	assert(pq);
 	pq->head = NULL;
 	pq->tail = NULL;
+	pq->size = 0;
 }
 
 //队列的销毁
@@ -29,6 +30,7 @@ void QueuePush(Queue* pq, QdataType x)
 	assert(pq);
 	QueueNode* NewNode = (QueueNode*)malloc(sizeof(QueueNode));
 	NewNode->next = NULL;
+	NewNode->data = x;
 	if (pq->head == NULL)
 	{
 		pq->head = NewNode;
@@ -39,6 +41,7 @@ void QueuePush(Queue* pq, QdataType x)
 		pq->tail->next = NewNode;
 		pq->tail = NewNode;
 	}
+	pq->size++;
 }
 
 //出队列
@@ -46,14 +49,19 @@ void QueuePop(Queue* pq)
 {
 	assert(pq);
 	assert(!QueueEmpty(pq));
-	QueueNode* next = pq->head->next;
-	free(pq->head);
-	pq->head = next;
-	//解决队列删空的情况
-	if (pq->head == NULL)
+	//剩余一个节点的情况
+	if (pq->head->next == NULL)
 	{
-		pq->tail = NULL;
+		free(pq->head);
+		pq->head = pq->tail = NULL;
 	}
+	else
+	{
+		QueueNode* del = pq->head;
+		pq->head = pq->head->next;
+		free(del);
+	}
+	pq->size--;
 }
 
 //返回队列的首元素
@@ -75,20 +83,21 @@ QdataType QueueBack(Queue* pq)
 //队列的大小
 int QueueSize(Queue* pq) 
 {
-	assert(pq);
-	int n = 0;
-	QueueNode* cur = pq->head;
-	while (cur)
-	{
-		n++;
-		cur = cur->next;
-	}
-	return n;
+	//assert(pq);
+	//int n = 0;
+	//QueueNode* cur = pq->head;
+	//while (cur)
+	//{
+	//	n++;
+	//	cur = cur->next;
+	//}
+	//return n;
+	return pq->size;
 }
 
 //判断队列是否为空
 bool QueueEmpty(Queue* pq)
 {
 	assert(pq);
-	return pq->head == NULL;
+	return pq->head == NULL && pq->tail == NULL;
 }
