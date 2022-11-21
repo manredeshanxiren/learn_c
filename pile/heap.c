@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"heap.h"
 
-int n;
+
 
 //堆的初始化
 void HeapInit(HP* php)
@@ -30,7 +30,7 @@ void Swap(HPDataType* a, HPDataType* b)
 	*b = temp;
 }
 
-//向上调整
+//向上调整  O(N* log N)
 void AdjustUp(HPDataType* a, int child)
 {
 	int parent = (child - 1) / 2;
@@ -79,18 +79,18 @@ void  HeapPrint(HP* php)
 	}
 }
 
-//向下调整
+//向下调整   O(N)
 void AdjustDown(HPDataType* a, int size, int parent)
 {
 	int child = parent * 2 + 1;
 	while (child < size)
 	{
-		if (child + 1 < size && a[child + 1] > a[child])
+		if (child + 1 < size && a[child + 1] < a[child])
 		{
 			child++;
 		}
 
-		if (a[child] > a[parent])
+		if (a[child] < a[parent])
 		{
 			Swap(&a[child], &a[parent]);
 			parent = child;
@@ -116,7 +116,7 @@ void HeapDown(HP* php)
 }
 
 //取堆顶的数据
-void HeapTop(HP* php)
+HPDataType HeapTop(HP* php)
 {
 	assert(php);
 	assert(php->size > 0);
@@ -142,8 +142,29 @@ void HeapCreate(HP* php, HPDataType* a, int n)
 	memcpy(php->a, a, sizeof(HPDataType) * n);
 	php->size = php->capacity = n;
 	//建堆算法
-	for (int i = (n - 1 - 1) / 2; i >= 0; i++)
+	for (int i = (n - 1 - 1) / 2; i >= 0; i--)
 	{
 			AdjustDown(a, n, i);
+	}
+}
+
+//堆排序
+void HeapSort(HPDataType* a, size_t n)
+{
+	//升序：大堆
+	for (int i = (n - 1 - 1) / 2; i >= 0; i--)
+	{
+		AdjustDown(a, n, i);
+	}
+	int end = n - 1;
+	while (end > 0)
+	{
+		Swap(&a[end], &a[0]);
+		AdjustDown(a, end, 0);
+		--end;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d ", a[i]);
 	}
 }

@@ -3,6 +3,8 @@
 #include<stdlib.h>
 #include<assert.h>
 #include<stdbool.h>
+#include<string.h>
+#include<time.h>
 
 typedef int HPDataType;
 typedef struct Heap
@@ -35,10 +37,16 @@ void HeapDown(HP* php);
 void AdjustDown(HPDataType* a, int size, int parent);
 
 //取堆顶的数据
-void HeapTop(HP* php);
+HPDataType HeapTop(HP* php);
 
 //堆是否为空
 bool HeapEmpty(HP* php);
 
 //创建堆的函数
 void HeapCreate(HP* php, HPDataType* a, int n);
+
+//交换函数
+void Swap(HPDataType* a, HPDataType* b);
+
+//堆排序
+void HeapSort(HPDataType* a, size_t n);
