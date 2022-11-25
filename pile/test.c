@@ -64,11 +64,7 @@ void test2()
 }
 int main()
 {
-	//test1();
-
-	//²âÊÔtopK
 	test2();
-
 
 
 	return 0;

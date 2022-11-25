@@ -15,6 +15,8 @@ typedef struct Heap
 
 }HP;
 
+
+
 //¶ÑµÄ³õÊ¼»¯
 void HeapInit(HP* php);
 
