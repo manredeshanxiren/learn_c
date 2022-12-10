@@ -1,5 +1,6 @@
 #pragma once
 #include<stdio.h>
+#include<stdlib.h>
 
 
 
@@ -26,3 +27,24 @@ void BubbleSort(int* a, int size);
 
 //快速排序
 void QuickSort(int* a, int begin, int end);
+
+//三数选择
+int GetMidIndex(int* a, int begin, int end);
+
+//hoare法
+int PartSort1(int* a, int begin, int end);
+
+//挖坑法
+int PartSort2(int* a, int begin, int end);
+
+//前后指针法
+int PartSort3(int* a, int begin, int end);
+
+//快速排序（非递归）
+void QuickSortS(int* a, int begin, int end);
+
+//归并排序
+void MergeSort(int* a, int size);
+
+//归并排序非递归版
+void MergeSortS(int* a, int size);
