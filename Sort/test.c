@@ -100,6 +100,15 @@ void MergeSortSTest()
 	PrintArray(a, sizeof(a) / sizeof(int));
 	printf("\n");
 }
+//计数排序测试
+void CountSortTest()
+{
+	int a[] = { 9,8,7,6,5,4,3,2,1 };
+	printf("计数排序:\n");
+	CountSort(a, sizeof(a) / sizeof(int));
+	PrintArray(a, sizeof(a) / sizeof(int));
+	printf("\n");
+}
 
 int main()
 {
@@ -112,4 +121,5 @@ int main()
 	QuickSortSTest();
 	MergeSortTest();
 	MergeSortSTest();
+	CountSortTest();
 }
