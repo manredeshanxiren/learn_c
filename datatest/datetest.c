@@ -2,11 +2,17 @@
 
 
 #include <stdio.h>
-void func(char* p) { p = p + 1; }
+void fun(char** p)
+{
+	int i;
+	for (i = 0; i < 4; i++)
+		printf("%s", p[i]);
+} 
 int main()
 {
-	char s[] = { '1', '2', '3', '4' };
-	func(s);
-	printf("%c", *s);
+	char* s[6] = { "ABCD", "EFGH", "IJKL", "MNOP", "QRST", "UVWX" };
+	fun(s);
+	printf("\n");
 	return 0;
+
 }
