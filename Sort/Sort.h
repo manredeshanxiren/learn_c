@@ -49,9 +49,11 @@ void MergeSort(int* a, int size);
 //归并排序非递归版
 void MergeSortS(int* a, int size);
 
-
-//计数排序
-void CountSort(int* arr, int size);
+//基数排序
+void RadixSort(int* arr, int size);
 
 //申请空间
 int* GetMemory(size_t size);
+
+//计数排序
+void CountSort(int* arr, int size);

@@ -505,8 +505,8 @@ int* GetMemory(size_t size)
 	return new;
 }
 
-//计数排序
-void CountSort(int* arr, int size)
+//基数排序
+void RadixSort(int* arr, int size)
 {
 	//首先找出最大值和最小值
 	int max = arr[0], min = arr[0];
@@ -536,6 +536,36 @@ void CountSort(int* arr, int size)
 		{
 			arr[j++] = i + min;
 			temp[i]--;
+		}
+	}
+}
+
+//计数排序
+void CountSort(int* arr, int size)
+{
+	int max = arr[0], min = arr[0];
+	//确认最大最小值
+	for (int i = 1; i < size; i++)
+	{
+		if (max < arr[i])
+			max = arr[i];
+		if (min > arr[i])
+			min = arr[i];
+	}
+	//申请空间,并且将原数组的元素进行统计
+	int range = max - min + 1;
+	int* countA = (int*)calloc(range, sizeof(int));
+	for (int i = 0; i < size; i++)
+	{
+		countA[arr[i] - min]++;
+	}
+	//放回原数组
+	int j = 0;
+	for (int i = 0; i < range; i++)
+	{
+		while (countA[i]--)
+		{
+			arr[j++] = i + min;
 		}
 	}
 }
