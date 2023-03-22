@@ -1,26 +1,51 @@
 #include<iostream>
+#include"Test.h"
 using namespace std;
-#define ADD(A,B) ((A) + (B))
 
-inline int add(int a, int b)
-{
-	int c = a + b;
-	return c;
-}
+
 int main()
 {
-	int a = 10;
-	auto b = a;
-	auto c = 'a'; 
-	cout << typeid(b).name() << endl;
-	cout << typeid(c).name() << endl;
+	Person man;
+	man._age = 1;
+	man._name = 2;
+	man._sex = 3;
+	man.showInfo();
 
-	int arr []= { 1,2,2,3,34,4,5, 5,34};
-	for (auto x : arr)
-	{
-		cout << x << " ";
-	}
-	cout << endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//int a = 10;
+	//auto b = a;
+	//auto c = 'a'; 
+	//cout << typeid(b).name() << endl;
+	//cout << typeid(c).name() << endl;
+
+	//int arr []= { 1,2,2,3,34,4,5, 5,34};
+	//for (auto x : arr)
+	//{
+	//	cout << x << " ";
+	//}
+	//cout << endl;
 
 
 
