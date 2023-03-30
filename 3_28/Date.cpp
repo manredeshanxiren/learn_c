@@ -15,7 +15,7 @@ int GetMonthDay(int year, int month)
 		return monthArray[month];
 	}
 }
-Date::Date(int year, int month, int day)
+Date :: Date(int year, int month, int day)
 {
 	if (month > 0 && month < 13
 		&& (day > 0 && day < GetMonthDay(year, month)))
@@ -84,6 +84,11 @@ Date& Date :: operator=(const Date& d)
 
 Date& Date :: operator += (int day)
 {
+	if (day < 0)
+	{
+		*this -= -day;
+		return *this;
+	}
 	_day += day;
 	while (_day > GetMonthDay(_year, _month))
 	{
@@ -116,4 +121,66 @@ Date Date :: operator++ (int)
 	Date temp(*this);
 	*this += 1;
 	return temp;
+}
+
+Date& Date :: operator -= (int day)
+{
+	_day -= day;
+	while (_day <= 0)
+	{
+		--_month;
+		if (_month == 0)
+		{
+			--_year;
+			_month = 12;
+			
+		}
+		_day += GetMonthDay(_year, _month);
+	}
+	return *this;
+}
+
+Date Date :: operator - (int day)
+{
+	Date temp (*this);
+	temp -= day;
+	return temp;
+}
+
+Date& Date :: operator-- ()
+{
+	*this -= 1;
+	return *this;
+}
+Date Date :: operator -- (int)
+{
+	Date temp(*this);
+	temp -= 1;
+	return temp;
+}
+
+int Date :: operator - (Date& d)
+{
+	Date max = *this;
+	Date min = d;
+	int flag = 1;
+	if (*this < d)
+	{
+		max = d;
+		min = *this;
+		flag = -1;
+	}
+
+	int n = 0;
+	while (min < max)
+	{
+		++min;
+		++n;
+	}
+	return n * flag;
+}
+ ostream& operator << (ostream& out, const Date& d)
+{
+	 out << d._year << "Äê" << d._month << "ÔÂ" << d._day << "ÈÕ" << endl;
+	 return out;
 }
