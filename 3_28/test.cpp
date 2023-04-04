@@ -13,14 +13,17 @@ void TestDate1()
 	Date d4 = d1 - 100;
 	d4.Print();
 }
+void TestDate2()
+{
+	Date d1(2023, 3, 28);
+	cin >> d1;
+	cout << d1 << endl;
+}
 int main()
 {
-	TestDate1();
-	Date d1(2023, 3, 28);
-	Date d2(2000, 3, 28);
+	TestDate2();
 
-	cout << d1 - d2 << endl;
-	cout << d1 << d2 << endl;
+
 
 	return 0;
 }

@@ -29,17 +29,18 @@ Date :: Date(int year, int month, int day)
 		cout << "日期非法" << endl;
 	}
 }
-void Date::Print()
+void Date::Print() const
 {
 	cout << _year << "/" << _month << "/" << _day << endl;
 }
 
 
-bool Date :: operator == (const Date& d)
+bool Date :: operator == (const Date& d) const
 {
 	return _year == d._year && _month == d._month && _day == d._day;
 }
-bool Date :: operator <(const Date& d)
+
+bool Date :: operator <(const Date& d) const
 {
 	if (_year < d._year)
 	{
@@ -58,15 +59,15 @@ bool Date :: operator <(const Date& d)
 		return false;
 	}
 }
-bool Date :: operator <=(const Date& d)
+bool Date :: operator <=(const Date& d) const
 {
 	return *this < d || *this == d;
 }
-bool Date :: operator > (const Date& d)
+bool Date :: operator > (const Date& d) const
 {
 	return !(*this <= d);
 }
-bool Date :: operator >= (const Date& d)
+bool Date :: operator >= (const Date& d) const
 {
 	return !(*this <= d) || *this == d;
 }
@@ -103,7 +104,7 @@ Date& Date :: operator += (int day)
 	return *this;
 }
 
-Date Date :: operator + (int day)
+Date Date :: operator + (int day)const
 {
 	Date temp = *this;
 	temp += day;
@@ -140,7 +141,7 @@ Date& Date :: operator -= (int day)
 	return *this;
 }
 
-Date Date :: operator - (int day)
+Date Date :: operator - (int day) const
 {
 	Date temp (*this);
 	temp -= day;
@@ -159,7 +160,7 @@ Date Date :: operator -- (int)
 	return temp;
 }
 
-int Date :: operator - (Date& d)
+int Date :: operator - (Date& d) const
 {
 	Date max = *this;
 	Date min = d;
@@ -179,8 +180,4 @@ int Date :: operator - (Date& d)
 	}
 	return n * flag;
 }
- ostream& operator << (ostream& out, const Date& d)
-{
-	 out << d._year << "年" << d._month << "月" << d._day << "日" << endl;
-	 return out;
-}
+
