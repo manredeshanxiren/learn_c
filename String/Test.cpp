@@ -6,7 +6,7 @@ int main()
 {
 	try
 	{
-		xupt::test_string4();
+		xupt::test_string5();
 	}
 	catch(const exception& e)
 	{
