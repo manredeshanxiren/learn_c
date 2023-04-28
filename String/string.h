@@ -219,7 +219,7 @@ namespace xupt
 			_str[0] = '\0';
 			_size = 0;
 		}
-
+		 
 		string& operator +=(char ch)
 		{
 			push_back(ch);
