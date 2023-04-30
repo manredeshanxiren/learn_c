@@ -12,11 +12,60 @@ namespace xupt
 		typedef T* iterator;
 		typedef  const T* const_iterator;
 
+		//vector()
+		//	:_start(nullptr)
+		//	, _finish(nullptr)
+		//	, _end_of_storage(nullptr)
+		//{}
+		
 		vector()
-			:_start(nullptr)
-			, _finish(nullptr)
-			, _end_of_storage(nullptr)
 		{}
+
+		vector(size_t n, const T& val = T())
+		{
+			reserve(n);
+			for (size_t i = 0; i < n; ++i)
+			{
+				push_back(val);
+			}
+		}
+
+		vector(int n, const T& val = T())
+		{
+			reserve(n);
+			for (int i = 0; i < n; ++i)
+			{
+				push_back(val);
+			}
+		}
+
+
+		vector(const vector <T>&  v)
+		{
+			_start = new T[v.capacity()];
+			for (size_t i = 0; i < v.size(); i++)
+			{
+				_start[i] = v._start[i];
+			}
+			_finish = _start + v.size();
+			_end_of_storage = _start + v.capacity();
+		}
+
+		template<class InputIterator>
+		vector(InputIterator first, InputIterator last)
+		{
+			while (first != last)
+			{
+				push_back(*first);
+				++first;
+			}
+		}
+		~vector()
+		{
+			delete []_start;
+			_finish = _end_of_storage = nullptr;
+		}
+
 
 		iterator begin()
 		{
@@ -149,13 +198,28 @@ namespace xupt
 			return _start[pos];
 		}
 
+		vector <T>& operator = (vector<T>& v)
+		{
+			_start = new T [v.capacity()];
+			for (size_t i = 0; i < v.size(); ++i)
+			{
+				_start[i] = v._start[i];
+			}
+			
+			_finish = _start + v.size();
+			_end_of_storage = _start + v.capacity();
+			return *this;
+		}
+
 
 
 
 	private:
-		iterator _start;
-		iterator _finish;
-		iterator _end_of_storage;
+		iterator _start = nullptr;
+		iterator _finish = nullptr;
+		iterator _end_of_storage = nullptr;
+
+
 	};
 
 
@@ -175,7 +239,6 @@ namespace xupt
 		}
 		cout << endl;
 	}
-
 
 
 
@@ -236,4 +299,68 @@ namespace xupt
 		v3.erase(v3.begin());
 		func(v3);
 	}
+
+	class Solution {
+	public:
+		vector<vector<int>> generate(int numRows) {
+			vector<vector<int>> vv;
+			vv.resize(numRows, vector<int>());
+			for (size_t i = 0; i < vv.size(); ++i)
+			{
+				vv[i].resize(i + 1, 0);
+				vv[i][0] = vv[i][vv[i].size() - 1] = 1;
+			}
+
+			for (size_t i = 0; i < vv.size(); ++i)
+			{
+				for (size_t j = 0; j < vv[i].size(); ++j)
+				{
+					if (vv[i][j] == 0)
+					{
+						vv[i][j] = vv[i - 1][j] + vv[i - 1][j - 1];
+					}
+				}
+			}
+
+			return vv;
+		}
+	};
+
+	void TestVector4()
+	{
+		vector<int> v3;
+		v3.push_back(1);
+		v3.push_back(2);
+		v3.push_back(3);
+		v3.push_back(4);
+		v3.push_back(5);
+
+		func(v3);
+
+		vector<int> v4 = v3;
+
+		func(v4);
+
+		vector<int> v5(v3.begin(), v3.end());
+
+		func(v5);
+	}
+
+
+	void TestVector5()
+	{
+		vector<vector<int>> ret = Solution().generate(5);
+		for (size_t i = 0; i < ret.size(); ++i)
+		{
+			for (size_t j = 0; j < ret[i].size(); ++j)
+			{
+				cout << ret[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	
 };
+
+

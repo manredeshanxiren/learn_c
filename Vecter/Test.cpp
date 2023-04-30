@@ -5,7 +5,7 @@
 
 int main()
 {
-	xupt::TestVector3();
+	xupt::TestVector5();
 
 
 
