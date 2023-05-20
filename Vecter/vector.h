@@ -17,9 +17,17 @@ namespace xupt
 		//	, _finish(nullptr)
 		//	, _end_of_storage(nullptr)
 		//{}
+
+		void swap(vector<T>& v)
+		{
+			std::swap(_start, v._start);
+			std::swap(_finish, v._finish);
+			std::swap(_end_of_storage, v._end_of_storage);
+		}
 		
 		vector()
 		{}
+
 
 		vector(size_t n, const T& val = T())
 		{
@@ -49,6 +57,9 @@ namespace xupt
 			}
 			_finish = _start + v.size();
 			_end_of_storage = _start + v.capacity();
+
+			//vector<T> tmp(v.begin(), v.end());
+			//swap(tmp);
 		}
 
 		template<class InputIterator>
@@ -166,7 +177,7 @@ namespace xupt
 			--_finish;
 		}
 		
-		void push_back(const T & x)
+		void push_back(const T& x)
 		{
 			if (_finish == _end_of_storage)
 			{
@@ -198,6 +209,7 @@ namespace xupt
 			return _start[pos];
 		}
 
+
 		vector <T>& operator = (vector<T>& v)
 		{
 			_start = new T [v.capacity()];
@@ -208,9 +220,20 @@ namespace xupt
 			
 			_finish = _start + v.size();
 			_end_of_storage = _start + v.capacity();
+			swap(v);
 			return *this;
 		}
 
+
+		vector <T>& operator = (const vector<T>& v)
+		{
+			if (this != &v) // 防止自己给自己赋值
+			{
+				vector<T> tmp(v); // 拷贝构造tmp对象
+				swap(tmp); // 交换_start，_finish， _endofstorage
+			}
+			return *this;
+		}
 
 
 
