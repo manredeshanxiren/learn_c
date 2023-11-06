@@ -3,6 +3,8 @@
 #include<iostream>
 #include<assert.h>
 
+#include"Iterator.h"
+
 using namespace std;
 
 namespace xupt
@@ -26,6 +28,7 @@ namespace xupt
 	{
 		typedef list_node<T>  node;
 		typedef _list_iterator<T, Ref, Ptr>  self;
+
 		node* _node;
 		_list_iterator(node* n)
 			:_node(n)
@@ -67,6 +70,27 @@ namespace xupt
 	public:
 		typedef _list_iterator<T, T&, T*> iterator;
 		typedef _list_iterator<T, const T&, const T*> const_iterator;
+		typedef Reverse_Iterator<iterator, T&, T*> reverse_iterator;
+		typedef Reverse_Iterator<iterator, const T&, const T*> const_reverse_iterator;
+
+
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
+		const_reverse_iterator rbegin() const
+		{
+			return const_reverse_iterator(end());
+		}
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator(begin());
+		}
+
 
 		iterator begin()
 		{
@@ -259,25 +283,25 @@ namespace xupt
 
 	void list_test2()
 	{
-		list<AA> t1;
-		t1.push_back(AA(1, 2));
-		t1.push_back(AA(2, 3));
-		t1.push_back(AA(3, 4));
+		list<int> t1;
+		t1.push_back(1);
+		t1.push_back(2);
+		t1.push_back(3);
 
 
-		list<AA> t2(t1.begin(), t1.end());
-		list<AA> ::iterator it = t2.begin();
-		while (it != t2.end())
+		//list<AA> t2(t1.begin(), t1.end());
+		//list<AA> ::iterator it = t2.begin();
+		//while (it != t2.end())
+		//{
+		//	cout << it->a1 << ':' << it->a2 << endl;
+		//	++it;
+		//}
+		//t2 = t1;
+
+		list<int> ::reverse_iterator it2 = t1.rbegin();
+		while (it2 != t1.rend())
 		{
-			cout << it->a1 << ':' << it->a2 << endl;
-			++it;
-		}
-		t2 = t1;
-
-		list<AA> ::iterator it2 = t2.begin();
-		while (it2 != t2.end())
-		{
-			cout << it2->a1 << ':' << it2->a2 << endl;
+			cout << *it2 << endl;
 			++it2;
 		}
 	}
@@ -287,4 +311,8 @@ namespace xupt
 
 
 };
+
+
+
+
 

@@ -29,7 +29,7 @@ namespace xupt
 		{
 			_start = new T[l.size()];
 			_finish = _start + l.size();
-			_endofstorage = _start + l.size();
+			_end_of_storage = _start + l.size();
 			iterator vit = _start;
 			typename initializer_list<T>::iterator lit = l.begin();
 			while (lit != l.end())
@@ -43,10 +43,9 @@ namespace xupt
 			vector<T> tmp(l);
 			std::swap(_start, tmp._start);
 			std::swap(_finish, tmp._finish);
-			std::swap(_endofstorage, tmp._endofstorage);
+			std::swap(_end_of_storage, tmp._end_of_storage);
 			return *this;
 		}
-
 
 
 		

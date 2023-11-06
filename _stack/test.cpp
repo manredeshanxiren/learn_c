@@ -2,12 +2,10 @@
 
 #include"stack.h"
 #include"queue.h"
-
+#include"priority_queue.h"
 int main()
 {
-	xupt::stack_test1();
-	cout << endl;
-	xupt::queue_test1();
+	xupt::Testpriority_queue();
 
 
 

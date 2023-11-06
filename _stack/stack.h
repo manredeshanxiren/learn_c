@@ -2,12 +2,13 @@
 #include<iostream>
 #include<vector>
 #include<list>
+#include<deque>
 using namespace std;
 
 namespace xupt
 {
 
-	template<class T, class Container = vector<int>>
+	template<class T, class Container = deque<int>>
 	class stack
 	{
 	public:

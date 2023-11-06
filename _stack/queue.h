@@ -4,12 +4,13 @@
 #include<iostream>
 #include<vector>
 #include<list>
+#include<deque>
 using namespace std;
 
 namespace xupt
 {
 
-	template<class T, class Container = list<int>>
+	template<class T, class Container = deque<int>>
 	class queue
 	{
 	public:
