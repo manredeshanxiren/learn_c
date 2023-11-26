@@ -5,7 +5,10 @@ public class Tricycle extends NonMotorVehicle{
     }
     Tricycle(String brand, String color)
     {
+        //调用父类的双参构造
         super(brand, color);
+        //更改轮胎属性为3
+        super._wheel = 3;
     }
 
     public void Display(){

@@ -4,6 +4,7 @@ public class Bike extends NonMotorVehicle {
     {}
     Bike(String color, String Brand)
     {
+        //调用父类的双参构造
         super(color, Brand);
     }
 

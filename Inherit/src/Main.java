@@ -9,7 +9,7 @@ public class Main {
         B.Display();
 
         System.out.print("电动车信息测试:");
-        ElectricMotorCar ec = new ElectricMotorCar("飞鸽","蓝色");
+        ElectricMotorCar ec = new ElectricMotorCar("飞鸽","飞鸽","蓝色");
         ec.Display();
 
         System.out.print("三轮车信息测试:");

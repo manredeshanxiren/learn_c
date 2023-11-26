@@ -1,19 +1,19 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-#include<iostream>
-#include<string>
+#include <stdio.h>    
 
-using namespace std;
+#include <stdlib.h>    
 
-int main()
+#include "calc.h"    
+
+int main(int argc, char* argv[])
+
 {
-	int x;
-	cin >> x;
 
-	string s = to_string(x);
+    int a = 1, b = 2;
 
-	string temp = s;
-	reverse(temp.begin(), temp.end());
+    int c = add1(a, b);
 
-	printf("%s", temp == s ? "yes" : "no");
-	
+    printf("%d %d %d\n", c, a, b);
+
+    return EXIT_SUCCESS;
+
 }
